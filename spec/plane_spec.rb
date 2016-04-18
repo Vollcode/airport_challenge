@@ -26,4 +26,10 @@ subject(:plane) { described_class.new}
       expect(subject.take_off).to eq(false)
     end
   end
+  describe '#landed?' do
+
+    it 'tells you current location of the plane' do
+      expect(subject.landed?).to eq(@landed)
+    end
+  end
 end
