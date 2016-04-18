@@ -45,15 +45,23 @@ describe Airport do
       message = "Can't let you land in this weather"
       expect{subject.arrival(plane)}.to raise_error(message)
     end
+
+    it 'will not allow to land a plane if its already on land' do
+      allow(airport).to receive(:stormy?) {false}
+      message = "This plane is already on land"
+      subject.arrival(plane)
+      expect{subject.arrival(plane)}.to raise_error(message)
+    end
   end
 
   describe '#full?' do
     before { allow(airport).to receive(:stormy?) {false} }
 
       it 'can not accept more planes if the airport is full' do
-        subject.arrival(plane)
+        plane = double("plane", :landed => false)
+        Airport::DEFAULT_CAPACITY.times{subject.airport_space << plane}
         message = "No more planes for today mate"
-        expect{10.times{subject.arrival(plane)}}.to raise_error(message)
+        expect{subject.arrival(plane)}.to raise_error(message)
       end
   end
   describe '#empty' do
