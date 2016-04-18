@@ -1,6 +1,6 @@
-require 'plane'
-require 'weather'
-# checking on Git
+require_relative 'plane'
+require_relative 'weather'
+
 class Airport
     attr_reader :capacity, :airport_space
 
@@ -18,10 +18,16 @@ class Airport
   end
 
   def arrival(planes)
-    fail "Can't let you land in this weather" if stormy?
     fail "No more planes for today mate" if full?
+    fail "This plane is already on land" if plane_on_land(planes)
+    fail "Can't let you land in this weather" if stormy?
     planes.land
     @airport_space << planes
+  end
+
+  def plane_on_land(planes)
+    plane = planes.object_id
+    @airport_space.include?(plane)
   end
 
   private

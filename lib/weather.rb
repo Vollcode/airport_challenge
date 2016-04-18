@@ -1,6 +1,3 @@
-require 'plane'
-require 'airport'
-
 class Weather
 
   def stormy?

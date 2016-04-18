@@ -43,7 +43,7 @@ describe Airport do
 
     it 'will not allow a plane to land if the weather is stormy' do
       message = "Can't let you land in this weather"
-      expect{subject.arrival(:plane)}.to raise_error(message)
+      expect{subject.arrival(plane)}.to raise_error(message)
     end
   end
 
